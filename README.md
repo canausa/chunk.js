@@ -1,0 +1,1 @@
+This library was built in order to simplify the uploading of large files in to smaller manageable pieces. Currently I will upload a file(s) by chunking it into 1mb pieces. and in series uploading each pieces with ajax. This library currently depends on jquery. jquery 1.8.3 is known to work. View the example.html (sendRequest) in order to understand how it works.
