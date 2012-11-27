@@ -38,7 +38,7 @@ and open the template in the editor.
         <form id="form1" enctype="multipart/form-data" method="post" action="upload.php">
             <div class="row">
                 <label for="fileToUpload">Select a File to Upload</label><br />
-                <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+                <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" multiple="multiple"/>
             </div>
             <div id="fileName"></div>
             <div id="fileSize"></div>

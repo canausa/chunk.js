@@ -18,7 +18,7 @@ function chunk() {
      */
     this.sendFiles = function(element, upload_path){
         
-        console.log(element);
+        //console.log(element);
         g_file_count = element.files.length;
         for ( var i=0; i<g_file_count; i++) {
             var temp_file = new file_obj(element.files[i]);
@@ -42,14 +42,19 @@ function chunk() {
         const num_chunks = Math.floor(SIZE / BYTES_PER_CHUNK) + 1;
         const file_name = file.name;
         
-        this.send = function(u_path) {
+        function sendI(u_path) {
             upload_path = u_path;
-            while( start < SIZE ) {
+            start = (current_part -1 ) * BYTES_PER_CHUNK;
+            if ( start < SIZE ) {
+            
+                end = start + BYTES_PER_CHUNK;
                 var chunk = file.slice(start, end);
                 uploadChunk(chunk);
-                start = end;
-                end = start + BYTES_PER_CHUNK;
             }
+        };
+        
+        this.send = function(u_path) {
+            sendI(u_path);
         };
         
         this.getFileName = function() {
@@ -71,11 +76,12 @@ function chunk() {
                 "url":upload_path+"?num="+current_part+"&total="+num_chunks,
                 "type":"POST",
                 "data": fd,
-                "async": false,
+                "async": true,
                 "contentType":false,
                 "processData":false,
-                "success": function() {
-                    current_part++;
+                "success": function () {
+                    current_part=current_part+1;
+                    sendI(upload_path);
                 }
             });
 
